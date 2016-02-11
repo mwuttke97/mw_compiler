@@ -27,6 +27,10 @@ datatype token =
   | SUB
   | MUL
   | LEQ
+  | GEQ
+  | EQ
+  | LT
+  | GT
   | VAR
   | NOP
   | RETURN
@@ -51,6 +55,10 @@ fun lex nil = nil
   | lex (#"-" :: cs)                                         = SUB       :: lex cs
   | lex (#"*" :: cs)                                         = MUL       :: lex cs
   | lex (#"<" :: #"=" :: cs)                                 = LEQ       :: lex cs
+  | lex (#">" :: #"=" :: cs)                                 = GEQ       :: lex cs
+  | lex (#"=" :: #"=" :: cs)                                 = EQ        :: lex cs
+  | lex (#"<" :: cs)                                         = LT        :: lex cs
+  | lex (#">" :: cs)                                         = GT        :: lex cs
   | lex (#"v" :: #"a" :: #"r" :: cs)                         = VAR       :: lex cs
   | lex (#"n" :: #"o" :: #"p" :: cs)                         = NOP       :: lex cs
   | lex (#"r" :: #"e" :: #"t" :: #"u" :: #"r" :: #"n" :: cs) = RETURN    :: lex cs
@@ -95,6 +103,10 @@ and parseE_M' (e, MUL::tr) = parseE_M' (extend (e,tr) parseE_L W.Mul)
 
 and parseE_L  ts = parseE_L' (parseE_prim ts)
 and parseE_L' (e, LEQ::tr) = parseE_L' (extend (e,tr) parseE_prim W.Leq)
+  | parseE_L' (e, GEQ::tr) = parseE_L' (extend (e,tr) parseE_prim W.Geq)
+  | parseE_L' (e, LT::tr) = parseE_L' (extend (e,tr) parseE_prim W.Lt)
+  | parseE_L' (e, GT::tr) = parseE_L' (extend (e,tr) parseE_prim W.Gt)
+  | parseE_L' (e, EQ::tr) = parseE_L' (extend (e,tr) parseE_prim W.Eq)
   | parseE_L' s = s
 
 and parseE_prim (CON z :: tr) = (W.Con z, tr)

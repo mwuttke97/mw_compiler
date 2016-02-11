@@ -59,6 +59,10 @@ structure Machine :> MACHINE = struct
 		| SUB
 		| MUL
 		| LEQ
+		| GEQ
+		| GT
+		| LT
+		| EQ
 		| CON  of int	(* Push an element to the stack *)
 		| PUT   of int	(* Pop an element from the stack and push it to the nth position *)
 		| GET   of int	(* Put the nth element from the stack to the stack *)
@@ -88,7 +92,11 @@ structure Machine :> MACHINE = struct
 	  | cmd (MUL)     = (let val (a, b) = (Stackregister.pop(), Stackregister.pop()) in Stackregister.push (a*b) end; 1)
 	  | cmd (SUB)     = (let val (a, b) = (Stackregister.pop(), Stackregister.pop()) in Stackregister.push (a-b) end; 1)
 	  | cmd (LEQ)     = (let val (a, b) = (Stackregister.pop(), Stackregister.pop()) in Stackregister.push (if a <= b then 1 else 0) end; 1)
-	  | cmd (CON  x)  = (Stackregister.push x; 1)
+	  | cmd (GEQ)     = (let val (a, b) = (Stackregister.pop(), Stackregister.pop()) in Stackregister.push (if a >= b then 1 else 0) end; 1)
+	  | cmd (LT)      = (let val (a, b) = (Stackregister.pop(), Stackregister.pop()) in Stackregister.push (if a < b then 1 else 0) end; 1)
+	  | cmd (GT)      = (let val (a, b) = (Stackregister.pop(), Stackregister.pop()) in Stackregister.push (if a > b then 1 else 0) end; 1)
+	  | cmd (EQ)      = (let val (a, b) = (Stackregister.pop(), Stackregister.pop()) in Stackregister.push (if a = b then 1 else 0) end; 1)
+	  | cmd (CON   x) = (Stackregister.push x; 1)
 	  | cmd (PUT   n) = (let val x = Stackregister.pop() in Stackregister.put (n, x) end; 1)
 	  | cmd (GET   n) = (let val y = Stackregister.sub n in Stackregister.push y end; 1)
 	  | cmd (BRAN  n) = n

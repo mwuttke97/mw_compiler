@@ -16,6 +16,10 @@ structure W = struct
 	 | Sub of exp*exp
 	 | Mul of exp*exp
 	 | Leq of exp*exp
+	 | Geq of exp*exp
+	 | Lt  of exp*exp
+	 | Gt  of exp*exp
+	 | Eq  of exp*exp
 	 | Var of var
 	 | Con of int
 	

@@ -14,6 +14,10 @@ signature MACHINE = sig
 		| SUB
 		| MUL
 		| LEQ
+		| GEQ
+		| GT
+		| LT
+		| EQ
 		| CON  of int	(* Push an element to the stack *)
 		| PUT   of int	(* Pop an element from the stack and push it to the nth position *)
 		| GET   of int	(* Put the nth element from the stack to the stack *)
