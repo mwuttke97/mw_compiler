@@ -1,0 +1,37 @@
+Group
+  signature ENV
+  structure Env
+
+  signature MACHINE
+  structure Machine
+
+  structure W
+  
+  signature COMPILER
+  structure Compiler
+
+  signature PARSER
+  structure Parser
+
+  signature MW_IO
+  structure MW_Io
+is
+  env-sig.sml
+  env.sml
+
+  m-sig.sml
+  m.sml
+
+  w-sig.sml
+
+  w-compiler-sig.sml
+  w-compiler.sml
+
+  w-parser-sig.sml
+  w-parser.sml
+
+  mw-io-sig.sml
+  mw-io.sml
+
+  $/basis.cm
+  $/smlnj-lib.cm
