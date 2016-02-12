@@ -8,7 +8,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 
 
-structure Parser (*:> PARSER*) = struct
+structure Parser :> PARSER = struct
 
 exception Error of string
 
